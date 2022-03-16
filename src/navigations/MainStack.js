@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import OnboardingScreen from '../screens/OnboardingScreen';
 import HomeScreen from '../screens/HomeScreen';
+import DetailScreen from '../screens/DetailScreen';
 import HeaderLogo from '../components/HeaderLogo';
 import { TouchableOpacity, Image, StyleSheet } from 'react-native';
 
@@ -28,6 +29,12 @@ const MainStack = () => {
               <Image style={styles.headerButton} source={require('../../assets/profileIcon.png')}/>
             </TouchableOpacity>
           )
+        }}/>
+        <AppStack.Screen name="DetailScreen" component={DetailScreen} options={{
+          headerStyle: {height:105} ,
+          headerTitle: (props) => <HeaderLogo{...props}/>,
+          headerBackImage: () => <Image style={styles.headerButton} source={require('../../assets/backIcon.png')}/>,
+          headerBackTitleVisible: false
         }}/>
       </AppStack.Navigator>
     </NavigationContainer>

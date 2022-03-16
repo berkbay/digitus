@@ -1,16 +1,16 @@
 import React from 'react';
 import { SafeAreaView, Text, Button, StyleSheet } from 'react-native';
 
-const HomeScreen = ({navigation}) => {
+const DetailScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Text>HomeScreen</Text>
-      <Button title="Click here" onPress={() => navigation.navigate("DetailScreen")}/>
+      <Text>DetailScreen</Text>
+      <Button title="Click here" onPress={() => navigation.goBack()}/>
     </SafeAreaView>
   );
 }
 
-export default HomeScreen;
+export default DetailScreen;
 
 const styles= StyleSheet.create({
   container: {
