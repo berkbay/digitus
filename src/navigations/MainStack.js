@@ -20,7 +20,12 @@ const MainStack = () => {
           headerTitle: (props) => <HeaderLogo{...props}/>,
           headerLeft: () => (
             <TouchableOpacity onPress={() => alert('Click Search Button')}>
-              <Image style={styles.searchButton} source={require('../../assets/search.png')}/>
+              <Image style={styles.headerButton} source={require('../../assets/search.png')}/>
+            </TouchableOpacity>
+          ),
+          headerRight: () => (
+            <TouchableOpacity onPress={() => alert('Click Profile Button')}>
+              <Image style={styles.headerButton} source={require('../../assets/profileIcon.png')}/>
             </TouchableOpacity>
           )
         }}/>
@@ -32,7 +37,7 @@ const MainStack = () => {
 export default MainStack;
 
 const styles = StyleSheet.create({
-  searchButton: {
-    marginLeft: 18
+  headerButton: {
+    marginHorizontal: 18
   }
 })
