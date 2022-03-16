@@ -1,9 +1,14 @@
 
-import MainStack from './src/navigations/MainStack';
+import { useState } from 'react';
+import AppIntro from './src/components/AppIntroComp';
+import TabContainer from './src/navigations/BottomNavigation';
 
-export default function App() {
+const App = () => {
+  const [showApp, setShowApp] = useState(false)
   return (
-    <MainStack/>
+    showApp ?  <TabContainer/> : <AppIntro params={setShowApp}/>
   );
 }
+
+export default App;
 

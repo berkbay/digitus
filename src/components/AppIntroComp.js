@@ -1,7 +1,7 @@
 import {StyleSheet, View, Text, Image, ScrollView} from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 
-const AppIntro = ({navigation}) => {
+const AppIntro = (props) => {
   const slides = [
     {
       key: 1,
@@ -42,7 +42,7 @@ const AppIntro = ({navigation}) => {
   }
 
   const goToHomePage = () => {
-    navigation.navigate('HomeScreen')
+    props.params(true)
   }
 
   return (
