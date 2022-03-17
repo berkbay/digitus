@@ -1,17 +1,76 @@
 import React from 'react';
-import { View, TouchableOpacity, Image, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Image, Text, StyleSheet, FlatList } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
+
+const STORIES_RESPONSE = [
+  {
+    id: '0',
+    image: require('../../assets/kadincalisan.png'),
+    name: 'Günün Menüsü',
+    isShow: false
+  },
+  {
+    id: '1',
+    image: require('../../assets/kadincalisan.png'),
+    name: 'Günün Menüsü',
+    isShow: false
+  },
+  {
+    id: '2',
+    image: require('../../assets/kadincalisan.png'),
+    name: 'Günün Menüsü',
+    isShow: true
+  },
+  {
+    id: '3',
+    image: require('../../assets/kadincalisan.png'),
+    name: 'Günün Menüsü',
+    isShow: true
+  },
+  {
+    id: '4',
+    image: require('../../assets/kadincalisan.png'),
+    name: 'Günün Menüsü',
+    isShow: true
+  },
+  {
+    id: '5',
+    image: require('../../assets/kadincalisan.png'),
+    name: 'Günün Menüsü',
+    isShow: true
+  },
+  {
+    id: '6',
+    image: require('../../assets/kadincalisan.png'),
+    name: 'Günün Menüsü',
+    isShow: true
+  },
+]
+
+
 const NewsComponent = () => {
+  const renderItem = ({ item }) => {
+    const STORY_BORDER_CONTAINER = item.isShow ? '#2A9D8F' : '#2A9D8F'
+    return (
+      <View style={styles.bodyView}>
+        <TouchableOpacity style={[styles.buttonBody, { borderColor: STORY_BORDER_CONTAINER }]}>
+          <Image style= {styles.buttonImage} source={item.image}/>
+        </TouchableOpacity>
+        <Text style={styles.infoText}>{item.name}</Text>
+      </View>
+    );
+  }
   return (
     <View style={styles.container}>
       <LinearGradient colors={['rgba(0,0,0,0.1)','transparent']} style={styles.lineargradient}/>
-      <View style={styles.bodyView}>
-        <TouchableOpacity style={styles.buttonBody}>
-          <Image style= {styles.buttonImage} source={require('../../assets/kadincalisan.png')}/>
-          <Text style={styles.buttonText}>Günün Menüsü</Text>
-        </TouchableOpacity>
-      </View>
+      <FlatList
+        showsHorizontalScrollIndicator={false}
+        horizontal
+        data={STORIES_RESPONSE}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+      />
     </View>
   );
 }
@@ -31,25 +90,24 @@ const styles= StyleSheet.create({
     height: 7,
   },
   bodyView: {
-    flexDirection:'row',
-    marginTop: 15
+    marginTop: 15,
+    justifyContent: 'center',
+    marginHorizontal:10,
   },
   buttonBody: {
     borderRadius:26.5,
     width: 53,
     height:53,
-    marginHorizontal:10,
     borderWidth:2,
-    borderColor:'#2A9D8F'
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonImage:{
     width:47,
     height:47,
     borderRadius:23.5,
-    marginTop:1,
-    alignSelf:'center',
   },
-  buttonText:{
+  infoText:{
     fontSize:11,
     color:'#999EB9',
     width: 53,
