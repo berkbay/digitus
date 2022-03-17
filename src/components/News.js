@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, TouchableOpacity, Image, Text, StyleSheet, FlatList } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -14,7 +14,7 @@ const STORIES_RESPONSE = [
     id: '1',
     image: require('../../assets/kadincalisan.png'),
     name: 'Günün Menüsü',
-    isShow: false
+    isShow: true
   },
   {
     id: '2',
@@ -50,11 +50,12 @@ const STORIES_RESPONSE = [
 
 
 const NewsComponent = () => {
+  const [isShow, setIsShow] = useState(isShow)
   const renderItem = ({ item }) => {
-    const STORY_BORDER_CONTAINER = item.isShow ? '#2A9D8F' : '#2A9D8F'
+    const STORY_BORDER_CONTAINER = item.isShow ? '#2A9D8F' : '#BEBEBE'
     return (
       <View style={styles.bodyView}>
-        <TouchableOpacity style={[styles.buttonBody, { borderColor: STORY_BORDER_CONTAINER }]}>
+        <TouchableOpacity onPress={() => setIsShow(!isShow)} style={[styles.buttonBody, { borderColor: STORY_BORDER_CONTAINER }]}>
           <Image style= {styles.buttonImage} source={item.image}/>
         </TouchableOpacity>
         <Text style={styles.infoText}>{item.name}</Text>

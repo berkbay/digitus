@@ -1,9 +1,11 @@
 import React from 'react';
 import { SafeAreaView, Text, Button, StyleSheet } from 'react-native';
 
-const DetailScreen = ({navigation}) => {
+const DetailScreen = ({route, navigation}) => {
+  const item = route.params
   return (
     <SafeAreaView style={styles.container}>
+      {console.log(item)}
       <Text>DetailScreen</Text>
       <Button title="Click here" onPress={() => navigation.goBack()}/>
     </SafeAreaView>
