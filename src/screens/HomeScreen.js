@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, Text, Button, StyleSheet } from 'react-native';
+import { SafeAreaView} from 'react-native';
 import News from '../components/News';
 import BodyCard from '../components/BodyCard';
 

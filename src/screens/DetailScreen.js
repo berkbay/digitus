@@ -1,7 +1,7 @@
 import React from 'react';
-import { SafeAreaView, Text, Button, StyleSheet, ScrollView,Image,View } from 'react-native';
+import { SafeAreaView, Text, StyleSheet, ScrollView,Image,View } from 'react-native';
 
-const DetailScreen = ({route, navigation}) => {
+const DetailScreen = ({route}) => {
   const item = route.params.item
   return (
     <SafeAreaView style={styles.container}>

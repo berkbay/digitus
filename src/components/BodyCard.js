@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Image, Text, StyleSheet, FlatList, ScrollView } from 'react-native';
+import { View, TouchableOpacity, Image, Text, StyleSheet, FlatList } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
