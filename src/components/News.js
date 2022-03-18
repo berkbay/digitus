@@ -1,59 +1,59 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, Image, Text, StyleSheet, FlatList } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 
 
-
+const STORIES_RESPONSE = [
+  {
+    id: '0',
+    image: require('../../assets/kadincalisan.png'),
+    name: 'Günün Menüsü',
+  },
+  {
+    id: '1',
+    image: require('../../assets/kadincalisan.png'),
+    name: 'Günün Menüsü',
+  },
+  {
+    id: '2',
+    image: require('../../assets/kadincalisan.png'),
+    name: 'Günün Menüsü',
+  },
+  {
+    id: '3',
+    image: require('../../assets/kadincalisan.png'),
+    name: 'Günün Menüsü',
+  },
+  {
+    id: '4',
+    image: require('../../assets/kadincalisan.png'),
+    name: 'Günün Menüsü',
+  },
+  {
+    id: '5',
+    image: require('../../assets/kadincalisan.png'),
+    name: 'Günün Menüsü',
+  },
+]
 
 const NewsComponent = () => {
 
-  const [handleShow, setHandleShow] = useState(true)
-
-  const STORIES_RESPONSE = [
-    {
-      id: '0',
-      image: require('../../assets/kadincalisan.png'),
-      name: 'Günün Menüsü',
-      isShow: handleShow
-    },
-    {
-      id: '1',
-      image: require('../../assets/kadincalisan.png'),
-      name: 'Günün Menüsü',
-      isShow: handleShow
-    },
-    {
-      id: '2',
-      image: require('../../assets/kadincalisan.png'),
-      name: 'Günün Menüsü',
-      isShow: handleShow
-    },
-    {
-      id: '3',
-      image: require('../../assets/kadincalisan.png'),
-      name: 'Günün Menüsü',
-      isShow: handleShow
-    },
-    {
-      id: '4',
-      image: require('../../assets/kadincalisan.png'),
-      name: 'Günün Menüsü',
-      isShow: handleShow
-    },
-    {
-      id: '5',
-      image: require('../../assets/kadincalisan.png'),
-      name: 'Günün Menüsü',
-      isShow: handleShow
-    },
-  ]
+  const [showedStories, setShowedStories] = useState([])
+  const [count, setCount]= useState(0)
 
   const renderItem = ({ item }) => {
-    const STORY_BORDER_CONTAINER = item.isShow ? '#2A9D8F' : '#BEBEBE'
+    const isShowed = showedStories?.find((element) => element.id === item.id)
+    const STORY_BORDER_CONTAINER = isShowed ? '#BEBEBE': '#2A9D8F'
+
     return (
       <View style={styles.bodyView}>
-        <TouchableOpacity onPress={() => setHandleShow(!item.isShow)} style={[styles.buttonBody, { borderColor: STORY_BORDER_CONTAINER }]}>
+        <TouchableOpacity onPress={() => {
+          const tempArray = showedStories
+          tempArray.push({id: item.id})
+          setShowedStories(tempArray)
+          setCount(count+1)
+        }} style={[styles.buttonBody, { borderColor: STORY_BORDER_CONTAINER }]}>
           <Image style= {styles.buttonImage} source={item.image}/>
         </TouchableOpacity>
         <Text style={styles.infoText}>{item.name}</Text>
@@ -70,6 +70,7 @@ const NewsComponent = () => {
         data={STORIES_RESPONSE}
         renderItem={renderItem}
         keyExtractor={item => item.id}
+        extraData={count}
       />
     </View>
   );

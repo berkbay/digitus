@@ -1,13 +1,18 @@
 
-import { useState } from 'react';
-import AppIntro from './src/components/AppIntroComp';
-import TabContainer from './src/navigations/BottomNavigation';
+import { Provider } from 'react-redux';
+import { applyMiddleware, createStore } from 'redux';
+import thunk from 'redux-thunk';
+import { reducer } from './src/store/reducers';
+import AppNavigator from './src/navigations/AppNavigator';
+
+const store = createStore(reducer, applyMiddleware(thunk))
 
 const App = () => {
-  const [showApp, setShowApp] = useState(false)
   return (
-    showApp ?  <TabContainer/> : <AppIntro params={setShowApp}/>
-  );
+    <Provider store={store}>
+      <AppNavigator/>
+    </Provider>
+  );d
 }
 
 export default App;

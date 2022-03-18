@@ -1,83 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, Image, Text, StyleSheet, FlatList } from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import {Feather} from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
-
-
-
-
+import { useDispatch, useSelector } from 'react-redux';
+import { getApi, } from '../store/actions';
 
 const BodyCard = (props) => {
+  const [likedProjects, setLikedProjects] = useState([])
+  const [count, setCount]= useState(0)
 
-  const [heart, setHeart] = useState(true)
-  const [number, setNumber] = useState(1000)
-
-  const STORIES_RESPONSE = [
-    {
-      id: '0',
-      image: require('../../assets/kadincalisanBody.png'),
-      name: 'Günün Menüsü',
-      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n' +
-        '\n' +
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n' +
-        '\n' +
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' ,
-      like: heart,
-      detail: 'Günaydın',
-      count: number
-    },
-    {
-      id: '1',
-      image: require('../../assets/kadincalisanBody.png'),
-      name: 'Günün Menüsü',
-      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n' +
-        '\n' +
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n' +
-        '\n' +
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      like: heart,
-      detail: 'Günaydın',
-      count: number
-    },
-    {
-      id: '2',
-      image: require('../../assets/kadincalisanBody.png'),
-      name: 'Günün Menüsü',
-      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n' +
-        '\n' +
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n' +
-        '\n' +
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      like: heart,
-      detail: 'Günaydın',
-      count: number
-    },
-  ]
-
-  const changeCount = (item) => {
-    setHeart(!item.like)
-    heart ? setNumber(item.count-1) : setNumber (item.count+1)
-  }
+  const API = useSelector((state) => state.api.items)
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(getApi())
+  },[])
 
   const renderItem = ({ item }) => {
-    const CARD_LIKE = item.like ? "heart" : "heart-outline"
+
+    const isLiked = likedProjects?.find((element) => element.id === item.id)
+    const HEART_PRESSED = isLiked ? 'heart': 'heart-outline'
+    const COUNT_NUMBER = isLiked ? count : item.stargazers_count
+
     return (
       <TouchableOpacity onPress={() => (props.navigation.navigate('DetailScreen', {item: item}))}>
         <View style={styles.container}>
-          <Image source={item.image} style={{height: 201, width: '100%'}} />
+          <Image source={{uri: item.owner.avatar_url}} style={{height: 201, width: '100%'}} />
           <Text style={styles.title}>{item.name}</Text>
           <View style={styles.information}>
             <View style={styles.detailView}>
-              <Text style={styles.detailText}>{item.detail}</Text>
+              <Text style={styles.detailText}>{item.language}</Text>
             </View>
             <View style={{flexDirection: 'row'}}>
               <Feather name="calendar" size={16} color="#999EB9" />
-              <Text style={ [styles.detailText,{color: '#999EB9', fontSize:12, marginHorizontal:5}]}>21.05.2020</Text>
+              <Text style={ [styles.detailText,{color: '#999EB9', fontSize:12, marginHorizontal:5}]}>{item.created_at.substring(0,10)}</Text>
             </View>
-            <TouchableOpacity onPress={ () => changeCount(item)}>
+            <TouchableOpacity onPress={() => {
+              const tempArray = likedProjects
+              tempArray.push({id: item.id})
+              setLikedProjects(tempArray)
+              setCount(item.stargazers_count+1)
+            }}>
               <View style={{flexDirection: 'row'}}>
-                <Text style={[styles.detailText, {color: '#FF6767', fontSize: 11}]}>{item.count}</Text>
-                <Ionicons name={CARD_LIKE} size={18} color="#FF6767" />
+                <Text style={[styles.detailText, {color: '#FF6767', fontSize: 11}]}>{COUNT_NUMBER}</Text>
+                <Ionicons name={HEART_PRESSED} size={18} color="#FF6767" />
               </View>
             </TouchableOpacity>
           </View>
@@ -89,10 +54,11 @@ const BodyCard = (props) => {
     <View>
       <FlatList
         contentContainerStyle={{ paddingBottom: 250 }}
-        showsHorizontalScrollIndicator={false}
-        data={STORIES_RESPONSE}
+        showsVerticalScrollIndicator={false}
+        data={API}
         renderItem={renderItem}
         keyExtractor={item => item.id}
+        extraData={count}
       />
     </View>
   );
