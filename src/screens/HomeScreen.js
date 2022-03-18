@@ -8,7 +8,6 @@ const HomeScreen = ({navigation}) => {
     <SafeAreaView>
       <News/>
       <BodyCard navigation={navigation}/>
-      <Button title="Click here" onPress={() => navigation.navigate("DetailScreen")}/>
     </SafeAreaView>
   );
 }

@@ -3,65 +3,64 @@ import { View, TouchableOpacity, Image, Text, StyleSheet, FlatList } from 'react
 import { LinearGradient } from 'expo-linear-gradient';
 
 
-const STORIES_RESPONSE = [
-  {
-    id: '0',
-    image: require('../../assets/kadincalisan.png'),
-    name: 'Günün Menüsü',
-    isShow: false
-  },
-  {
-    id: '1',
-    image: require('../../assets/kadincalisan.png'),
-    name: 'Günün Menüsü',
-    isShow: true
-  },
-  {
-    id: '2',
-    image: require('../../assets/kadincalisan.png'),
-    name: 'Günün Menüsü',
-    isShow: true
-  },
-  {
-    id: '3',
-    image: require('../../assets/kadincalisan.png'),
-    name: 'Günün Menüsü',
-    isShow: true
-  },
-  {
-    id: '4',
-    image: require('../../assets/kadincalisan.png'),
-    name: 'Günün Menüsü',
-    isShow: true
-  },
-  {
-    id: '5',
-    image: require('../../assets/kadincalisan.png'),
-    name: 'Günün Menüsü',
-    isShow: true
-  },
-  {
-    id: '6',
-    image: require('../../assets/kadincalisan.png'),
-    name: 'Günün Menüsü',
-    isShow: true
-  },
-]
+
 
 
 const NewsComponent = () => {
-  const [isShow, setIsShow] = useState(isShow)
+
+  const [handleShow, setHandleShow] = useState(true)
+
+  const STORIES_RESPONSE = [
+    {
+      id: '0',
+      image: require('../../assets/kadincalisan.png'),
+      name: 'Günün Menüsü',
+      isShow: handleShow
+    },
+    {
+      id: '1',
+      image: require('../../assets/kadincalisan.png'),
+      name: 'Günün Menüsü',
+      isShow: handleShow
+    },
+    {
+      id: '2',
+      image: require('../../assets/kadincalisan.png'),
+      name: 'Günün Menüsü',
+      isShow: handleShow
+    },
+    {
+      id: '3',
+      image: require('../../assets/kadincalisan.png'),
+      name: 'Günün Menüsü',
+      isShow: handleShow
+    },
+    {
+      id: '4',
+      image: require('../../assets/kadincalisan.png'),
+      name: 'Günün Menüsü',
+      isShow: handleShow
+    },
+    {
+      id: '5',
+      image: require('../../assets/kadincalisan.png'),
+      name: 'Günün Menüsü',
+      isShow: handleShow
+    },
+  ]
+
   const renderItem = ({ item }) => {
     const STORY_BORDER_CONTAINER = item.isShow ? '#2A9D8F' : '#BEBEBE'
     return (
       <View style={styles.bodyView}>
-        <TouchableOpacity onPress={() => setIsShow(!isShow)} style={[styles.buttonBody, { borderColor: STORY_BORDER_CONTAINER }]}>
+        <TouchableOpacity onPress={() => setHandleShow(!item.isShow)} style={[styles.buttonBody, { borderColor: STORY_BORDER_CONTAINER }]}>
           <Image style= {styles.buttonImage} source={item.image}/>
         </TouchableOpacity>
         <Text style={styles.infoText}>{item.name}</Text>
       </View>
     );
   }
+
   return (
     <View style={styles.container}>
       <LinearGradient colors={['rgba(0,0,0,0.1)','transparent']} style={styles.lineargradient}/>
